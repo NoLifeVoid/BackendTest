@@ -14,9 +14,9 @@ const limiter = (0, express_rate_limit_1.rateLimit)({
     legacyHeaders: false,
 });
 const app = (0, express_1.default)();
+app.use((0, cors_1.default)());
 app.set("trust proxy", 1);
 app.use(limiter);
-app.use((0, cors_1.default)());
 app.use((0, helmet_1.default)());
 const port = 3000;
 app.get("/", (req, res) => {

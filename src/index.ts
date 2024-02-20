@@ -10,10 +10,11 @@ const limiter = rateLimit({
   legacyHeaders: false,
 });
 const app: Application = express();
-
-app.set("trust proxy", 1);
-app.use(limiter);
 app.use(cors());
+app.set("trust proxy", 1);
+
+app.use(limiter);
+
 app.use(helmet());
 
 const port = 3000;
