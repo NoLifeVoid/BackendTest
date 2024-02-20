@@ -7,18 +7,16 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const helmet_1 = __importDefault(require("helmet"));
 const express_rate_limit_1 = require("express-rate-limit");
+const app = (0, express_1.default)();
+app.set("trust proxy", 1);
+const port = 3000;
 const limiter = (0, express_rate_limit_1.rateLimit)({
     windowMs: 15 * 60 * 1000,
-    limit: 50,
-    standardHeaders: "draft-7",
-    legacyHeaders: false,
+    limit: 50
 });
-const app = (0, express_1.default)();
-app.use((0, cors_1.default)());
-app.set("trust proxy", 1);
 app.use(limiter);
+app.use((0, cors_1.default)());
 app.use((0, helmet_1.default)());
-const port = 3000;
 app.get("/", (req, res) => {
     res.status(200).json({ message: "🌌 Hello World!" });
 });
