@@ -3,21 +3,27 @@ import cors from "cors";
 import helmet from "helmet";
 import { rateLimit } from "express-rate-limit";
 
+
+const app: Application = express();
+app.set("trust proxy", 1);
+const port = 3000;
+
+
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  limit: 50,
-  standardHeaders: "draft-7",
-  legacyHeaders: false,
+  limit: 50
 });
-const app: Application = express();
-app.use(cors());
-app.set("trust proxy", 1);
-
 app.use(limiter);
-
+app.use(cors());
 app.use(helmet());
 
-const port = 3000;
+
+
+
+
+
+
+
 
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({ message: "🌌 Hello World!" });
